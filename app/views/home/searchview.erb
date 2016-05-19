@@ -1,0 +1,26 @@
+<div class="container">
+    <h2 class="header text_b">레시피 구경하기 </h2>
+    <div class="row">
+        <div class="card" style= 'width:80%; position:relative;float:right;'><% @ingre2.each do |i| %>
+                
+                   <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                          <img class="activator" src="<%= Recipe.find(i.recipe_id).img_url %>">
+                        </div>
+        
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-4"><%= Recipe.find(i.recipe_id).recipe %><i class="material-icons right">more_vert</i></span>
+                          
+                        </div>
+                        <div class="card-reveal">
+                          <span class="card-title grey-text text-darken-4"><%= Recipe.find(i.recipe_id).title %><i class="material-icons right">close</i></span>
+                          <p><%= Recipe.find(i.recipe_id).recipe %></p>
+                        
+                        </div>
+                      </div>
+         
+           
+           <% end %>
+           
+    </div> 
+</div> 

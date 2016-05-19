@@ -1,0 +1,417 @@
+
+<script src="jquery.masonry.min.js"></script>
+<style>
+    .card1 {
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin: 5px;
+        background-color: #2195c9;
+      }
+</style>
+<!--Hero-->
+<div class="section no-pad-bot" id="index-banner">
+      <a href='/users/sign_out' class="waves-effect waves-teal btn-flat" style='margin left:90%;color:white'>로그아웃</a>
+    <div class="container">
+        <h1 class="text_h center header cd-headline letters type">
+            <span></span> 
+            <span class="cd-words-wrapper waiting">
+                <b class="is-visible">요리왕</b>
+                
+                <b>힘들었다</b>
+            </span>
+        </h1>
+    </div>
+</div>
+
+<!--Intro and service-->
+<section id = 'intro' class="section scrollspy">
+<div id="recipewrite_page" >
+    <div class="container">
+        <div class="row">
+            <div  class="col s12">
+                <h2 class="center header text_h2">  <span class="span_h2"> 너의 레시피 꿀팁을 알려줘!<i class="mdi-social-group"></i>  </span>  </h2><br><br>
+
+            <form class="col s12" action='/recipesave' method='post'>
+                <div class="row">
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input id="title" name='title' type="text" class="validate">
+                          <label for="email" data-error="wrong" data-success="right">요리 이름이 무엇인가요?</label>
+                        </div>
+                      </div>
+                  </div>
+               
+                <div class="center promo promo-example">
+                    <div class="row">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <textarea id="textarea1" name='recipe' class="materialize-textarea"></textarea>
+                      <label for="textarea1">레시피를 입력해줘</label>
+                    </div>
+                  </div>
+              </div>
+                
+            </div>
+            
+             <div class="row">
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input id="img_url" name='img_url' type="text" class="validate">
+                          <label for="email" data-error="wrong" data-success="right">이미지 주소가 있다면 이곳에 써줘</label>
+                        </div>
+                      </div>
+                  </div>
+                  <button class="btn waves-effect waves-light" type="submit" name="action">다음 단계로<i class="material-icons right">send</i> </button>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Work-->
+<section id="work" class="section scrollspy">
+<div>
+    <div class="container">
+        <h2 class="header text_b">레시피 구경하기 </h2>
+        
+        
+             <p>
+             <form action='/home/search1' method='post'>
+                <input id="title" name='keyword' type="text" class="validate">
+                <label for="email" data-error="wrong" data-success="right">검색할 내용을 다음과 같이 입력해 주세요<br>ex)#콘치즈#옥수수#...</label>
+              </p>
+                <button class="btn waves-effect waves-light" type="submit" name="action">검색!<i class="material-icons right">send</i> </button>
+              </form>  
+              <div class="row" id='recipeshow'>
+              <div class='masonry'>
+                <% @recipe.each do |r| %><div  style= 'width:250px;position:relative;float:left;margin-top:30px;margin-left:20px'>
+                
+                   <div class="card" id="card1" style="width:100%;float:left">
+                        <div class="card-image waves-effect waves-block waves-light">
+                        
+                          <img class="activator" style='width:100%' id="img_url" src="<%=r.img_url%>">
+                            
+                        </div>
+        
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-4"><%= r.title %><i class="material-icons right">more_vert</i></span>
+                          
+                        </div>
+                        <div class="card-reveal">
+                          <span class="card-title grey-text text-darken-4"><%= r.title %><i class="material-icons right">close</i></span>
+                          <p><%= r.user.username %></p>
+                          <p><%= r.recipe %></p>
+                         <% r.replies.each do |i| %> 
+                         <p>
+                                <i class="material-icons" style='float:left'>textsms</i><%=i.reply%>
+                         </p>
+                         <p><%=i.user.username%></p>
+                         <% end %>
+                        
+                        </div>
+                      </div>
+                     
+                     <!--댓글-->
+                       
+                        <form class="col s12" action="/reply/<%= r.id %>" method="post">
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input name="reply" type="text" class="validate" style="width:250px">
+                              <label for="reply" data-error="wrong" data-success="right">댓글</label>
+                           
+                          
+                          <button class="btn waves-effect waves-light" type="submit" name="action">댓글 작성하기<i class="material-icons right">send</i> </button>
+                       </div> </div> </form>
+                      </div><% end %>
+                                  
+                </div> 
+            
+     
+    </div>
+    </div>
+</section>            
+<!--            <div class="col s12 m4 l4">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-image waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/project2.jpeg">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>-->
+<!--                        <p><a href="#">Project link</a></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-reveal">-->
+<!--                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>-->
+<!--                        <p>Here is some more information about this project that is only revealed once clicked on.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m4 l4">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-image waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/project3.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>-->
+<!--                        <p><a href="#">Project link</a></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-reveal">-->
+<!--                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>-->
+<!--                        <p>Here is some more information about this project that is only revealed once clicked on.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m4 l4">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-image waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/project4.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>-->
+<!--                        <p><a href="#">Project link</a></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-reveal">-->
+<!--                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>-->
+<!--                        <p>Here is some more information about this project that is only revealed once clicked on.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m4 l4">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-image waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/project5.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>-->
+<!--                        <p><a href="#">Project link</a></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-reveal">-->
+<!--                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>-->
+<!--                        <p>Here is some more information about this project that is only revealed once clicked on.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m4 l4">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-image waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/project6.jpeg">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>-->
+<!--                        <p><a href="#">Project link</a></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-reveal">-->
+<!--                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>-->
+<!--                        <p>Here is some more information about this project that is only revealed once clicked on.</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--Parallax-->
+<!--<div class="parallax-container">-->
+<!--    <div class="parallax"><img src="img/parallax1.png"></div>-->
+<!--</div>-->
+
+<!--Team-->
+<!--<div class="section scrollspy" id="team">-->
+<!--    <div class="container">-->
+<!--        <h2 class="header text_b"> Our Team </h2>-->
+<!--        <div class="row">-->
+<!--            <div class="col s12 m3">-->
+<!--                <div class="card card-avatar">-->
+<!--                    <div class="waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/avatar1.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Flash <br/>-->
+<!--                            <small><em><a class="red-text text-darken-1" href="#">CEO</a></em></small></span>-->
+<!--                        <p>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">-->
+<!--                                <i class="fa fa-facebook-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">-->
+<!--                                <i class="fa fa-twitter-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">-->
+<!--                                <i class="fa fa-google-plus-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">-->
+<!--                                <i class="fa fa-linkedin-square"></i>-->
+<!--                            </a>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m3">-->
+<!--                <div class="card card-avatar">-->
+<!--                    <div class="waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/avatar2.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Cat Woman<br/>-->
+<!--                            <small><em><a class="red-text text-darken-1" href="#">Designer</a></em></small>-->
+<!--                        </span>-->
+<!--                        <p>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">-->
+<!--                                <i class="fa fa-facebook-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">-->
+<!--                                <i class="fa fa-twitter-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">-->
+<!--                                <i class="fa fa-google-plus-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">-->
+<!--                                <i class="fa fa-linkedin-square"></i>-->
+<!--                            </a>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m3">-->
+<!--                <div class="card card-avatar">-->
+<!--                    <div class="waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/avatar3.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">-->
+<!--                            Capt. America <br/>-->
+<!--                            <small><em><a class="red-text text-darken-1" href="#">CMO</a></em></small></span>-->
+<!--                        <p>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">-->
+<!--                                <i class="fa fa-facebook-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">-->
+<!--                                <i class="fa fa-twitter-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">-->
+<!--                                <i class="fa fa-google-plus-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">-->
+<!--                                <i class="fa fa-linkedin-square"></i>-->
+<!--                            </a>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col s12 m3">-->
+<!--                <div class="card card-avatar">-->
+<!--                    <div class="waves-effect waves-block waves-light">-->
+<!--                        <img class="activator" src="img/avatar4.png">-->
+<!--                    </div>-->
+<!--                    <div class="card-content">-->
+<!--                        <span class="card-title activator grey-text text-darken-4">Robin<br/>-->
+<!--                            <small><em><a class="red-text text-darken-1" href="#">Developer</a></em></small></span>-->
+<!--                        <p>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">-->
+<!--                                <i class="fa fa-facebook-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">-->
+<!--                                <i class="fa fa-twitter-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">-->
+<!--                                <i class="fa fa-google-plus-square"></i>-->
+<!--                            </a>-->
+<!--                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">-->
+<!--                                <i class="fa fa-linkedin-square"></i>-->
+<!--                            </a>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--Footer-->
+<!--<footer id="contact" class="page-footer default_color scrollspy">-->
+<!--    <div class="container">  -->
+<!--        <div class="row">-->
+<!--            <div class="col l6 s12">-->
+<!--                <form class="col s12" action="contact.php" method="post">-->
+<!--                    <div class="row">-->
+<!--                        <div class="input-field col s6">-->
+<!--                            <i class="mdi-action-account-circle prefix white-text"></i>-->
+<!--                            <input id="icon_prefix" name="name" type="text" class="validate white-text">-->
+<!--                            <label for="icon_prefix" class="white-text">First Name</label>-->
+<!--                        </div>-->
+<!--                        <div class="input-field col s6">-->
+<!--                            <i class="mdi-communication-email prefix white-text"></i>-->
+<!--                            <input id="icon_email" name="email" type="email" class="validate white-text">-->
+<!--                            <label for="icon_email" class="white-text">Email-id</label>-->
+<!--                        </div>-->
+<!--                        <div class="input-field col s12">-->
+<!--                            <i class="mdi-editor-mode-edit prefix white-text"></i>-->
+<!--                            <textarea id="icon_prefix2" name="message" class="materialize-textarea white-text"></textarea>-->
+<!--                            <label for="icon_prefix2" class="white-text">Message</label>-->
+<!--                        </div>-->
+<!--                        <div class="col offset-s7 s5">-->
+<!--                            <button class="btn waves-effect waves-light red darken-1" type="submit">Submit-->
+<!--                                <i class="mdi-content-send right white-text"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="col l3 s12">-->
+<!--                <h5 class="white-text">joashpereira.com</h5>-->
+<!--                <ul>-->
+<!--                    <li><a class="white-text" href="http://www.joashpereira.com/">Home</a></li>-->
+<!--                    <li><a class="white-text" href="http://www.joashpereira.com/blog">Blog</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            <div class="col l3 s12">-->
+<!--                <h5 class="white-text">Social</h5>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <a class="white-text" href="https://www.behance.net/joashp">-->
+<!--                            <i class="small fa fa-behance-square white-text"></i> Behance-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a class="white-text" href="https://www.facebook.com/joash.c.pereira">-->
+<!--                            <i class="small fa fa-facebook-square white-text"></i> Facebook-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a class="white-text" href="https://github.com/joashp">-->
+<!--                            <i class="small fa fa-github-square white-text"></i> Github-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a class="white-text" href="https://www.linkedin.com/in/joashp">-->
+<!--                            <i class="small fa fa-linkedin-square white-text"></i> Linkedin-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="footer-copyright default_color">-->
+<!--        <div class="container">-->
+<!--            Made by <a class="white-text" href="http://joashpereira.com">Joash Pereira</a>. Thanks to <a class="white-text" href="http://materializecss.com/">materializecss</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer>-->
+
+
+<script>
+  $(function(){
+ 
+    var $container = $('#recipeshow');
+  
+    // $container.imagesLoaded( function(){
+      $container.masonry({
+           columnWidth: 300,
+           percentPosition: true,
+            itemSelector : '.card'
+      });
+    // });
+  
+  });
+</script>
+
+   
+
