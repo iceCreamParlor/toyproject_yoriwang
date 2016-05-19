@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160518151431) do
   end
 
   create_table "replies", force: :cascade do |t|
-    t.string   "user"
+    t.integer  "user_id"
     t.text     "reply"
     t.integer  "recipe_id"
     t.datetime "created_at", null: false

@@ -1,8 +1,11 @@
 class HomeController < ApplicationController
   def index
+    if user_signed_in?
     @recipe = Recipe.all.reverse
     @ingre = Ingredient.all
-    
+     else 
+      redirect_to '/users/sign_in'
+    end
   end
  
   
@@ -17,15 +20,14 @@ class HomeController < ApplicationController
   end
   
   def ingredient
-    if user_signed_in?
+    
         ingre = Ingredient.all
         @arr = Array.new
         ingre.each do |i|
           @arr.push(i.ingre)
         end
-    else 
-      redirect_to '/users/sign_in'
-    end
+   
+    
   end
   
   def ingredientsave
@@ -41,7 +43,7 @@ class HomeController < ApplicationController
           ingre1=Ingredient.all
           keyword=Array.new.push(params[:keyword]).first.split("#")
           ingre1.each do |i|
-          ingre=Array.new.push(Ingredient.find(i.recipe_id).ingre.split("#")).first
+          ingre=Array.new.push(Ingredient.find(i.id).ingre.split("#")).first
         
         
           if( keyword  - ingre == [])
@@ -57,13 +59,11 @@ class HomeController < ApplicationController
       @ingre2 = Ingredient2.all.reverse
   end
   def reply
-    if user_signed_in?
+    
       @reply = Reply.create(reply: params[:reply], recipe_id: params[:id], user: current_user)
       @reply.save
       redirect_to '/home/index#work'
-    else 
-      redirect_to '/users/sign_in'
-    end
+  
   end
 end
         
