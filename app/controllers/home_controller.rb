@@ -20,7 +20,6 @@ class HomeController < ApplicationController
     ingre = Ingredient.create(ingre: params[:ingre], recipe_id: Recipe.last.id)
     ingre.save
     redirect_to '/home/index#work'
-   
   end
   
   def search1

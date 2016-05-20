@@ -44,35 +44,29 @@
                
                 
                     <div class="row">
-                  <div class="row">
+                  <div class="row" style='margin-top:30px'>
                     <div class="input-field col s12">
                       <textarea id="textarea1" name='recipe' class="materialize-textarea"></textarea>
                       <label for="textarea1">레시피를 입력해줘</label>
                     </div>
-                  </div>
-                 
-            
-            
-        
-                        <div class="input-field col s12">
-                          <input id="img_url" name='img_url' type="text" class="validate">
+                    <div class="input-field col s12" style='margin-top:30px'>
+                      <input id="img_url" name='img_url' type="text" class="validate">
                           <label for="email" data-error="wrong" data-success="right">이미지 주소가 있다면 이곳에 써줘</label>
-                        </div>
+                    </div>
                      
-                    
-         <div class="input-field col s12">
-            <input id="title" name='ingre' type="text" class="validate">
-               <label for="email" name='label' data-error="wrong" data-success="right">태그할 내용을 다음과 같은 형식으로 입력해주세요<br>ex)#옥수수캔#버터#...</label>
-         </div>
+                    <div class="input-field col s12" style='margin-top:30px'>
+                        <input id="title" name='ingre' type="text" class="validate">
+                        <label for="email" name='label' data-error="wrong" data-success="right">태그할 내용을 다음과 같은 형식으로 입력해주세요   ex)#옥수수캔#버터#...(재료를 태그해 주시면 검색하기 좋아요!)</label>
+                    </div>
     
-      <button class="btn waves-effect waves-light" type="submit" name="action">레시피 등록하기!
-      <i class="material-icons right">send</i>
-    </button>
+                  <button class="btn waves-effect waves-light" style='margin-top:30px' type="submit" name="action">레시피 등록하기!
+                  <i class="material-icons right">send</i>
+                  </button>
               
                 
-             
                   </div>
-                             </form>
+                  </div>
+            </form>
             </div>
         </div>
     </div>
@@ -81,7 +75,7 @@
 <section id="work" class="section scrollspy">
 <div>
     <div class="container">
-        <h2 class="header text_b">레시피 구경하기 </h2>
+        <h2 class="header text_b">레시피 검색하기 </h2>
         
         
              <p>
@@ -91,9 +85,10 @@
               </p>
                 <button class="btn waves-effect waves-light" type="submit" name="action">검색!<i class="material-icons right">send</i> </button>
               </form>  
-              <div class="row" id='recipeshow'>
+              <div class="row" id='recipeshow' style='margin-top:100px'>
+                 <h2 class="header text_b">레시피 구경하기 </h2>     
               <div class='masonry'>
-                <% @recipe.each do |r| %><div  style= 'width:250px;position:relative;float:left;margin-top:30px;margin-left:20px'>
+                <% @recipe.each do |r| %><div  style= 'width:250px;position:relative;float:left;margin-top:100px;margin-left:20px'>
                 
                    <div class="card" id="card1" style="width:100%;float:left">
                         <div class="card-image waves-effect waves-block waves-light">
