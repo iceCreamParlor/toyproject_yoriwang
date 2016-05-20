@@ -16,25 +16,11 @@ class HomeController < ApplicationController
     recipe.img_url = params[:img_url]
     recipe.user = current_user
     recipe.save
-    redirect_to '/home/ingredient'
-  end
-  
-  def ingredient
-    
-        ingre = Ingredient.all
-        @arr = Array.new
-        ingre.each do |i|
-          @arr.push(i.ingre)
-        end
-   
-    
-  end
-  
-  def ingredientsave
-    ingre = Ingredient.all
-    ingre = Ingredient.create(ingre: params[:ingre], recipe_id: params[:id])
+     ingre = Ingredient.all
+    ingre = Ingredient.create(ingre: params[:ingre], recipe_id: Recipe.last.id)
     ingre.save
     redirect_to '/home/index#work'
+   
   end
   
   def search1
