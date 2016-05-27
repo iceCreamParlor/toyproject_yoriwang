@@ -103,13 +103,13 @@
                         </div>
                         <div class="card-reveal">
                           <span class="card-title grey-text text-darken-4"><%= r.title %><i class="material-icons right">close</i></span>
-                          <p><%= r.user.username %></p>
+                         
                           <p><%= r.recipe %></p>
                           <p>댓글</p>
                           <table class='striped'>
                          <% r.replies.each do |i| %>
                            <tr>
-                           <td><%=i.user.username%></td>
+                    
                            <td><i class="material-icons" style='float:left'>textsms</i><%=i.reply%></td>
                            </tr>
                            <% end %>
