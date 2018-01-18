@@ -11,7 +11,6 @@ class HomeController < ApplicationController
     recipe.title = params[:title]
     recipe.recipe = params[:recipe]
     recipe.img_url = params[:img_url]
-    recipe.user = current_user
     recipe.save
      ingre = Ingredient.all
     ingre = Ingredient.create(ingre: params[:ingre], recipe_id: Recipe.last.id)
@@ -42,7 +41,7 @@ class HomeController < ApplicationController
   end
   def reply
 
-      @reply = Reply.create(reply: params[:reply], recipe_id: params[:id], user: current_user)
+      @reply = Reply.create(reply: params[:reply], recipe_id: params[:id])
       @reply.save
       redirect_to '/home/index#work'
 
